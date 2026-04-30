@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brawl Stars — фан-сайт</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a2e;
+            color: #eee;
+            line-height: 1.6;
+        }
+
+        /* Шапка */
+        header {
+            background: linear-gradient(135deg, #ffcc00, #ff6b00);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(255, 107, 0, 0.4);
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: #1a1a2e;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .logo span {
+            color: #fff;
+            text-shadow: 2px 2px 0 #1a1a2e;
+        }
+
+        nav a {
+            color: #1a1a2e;
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        nav a:hover {
+            background: #1a1a2e;
+            color: #ffcc00;
+            transform: scale(1.05);
+        }
+
+        /* Главный баннер */
+        .hero {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%2316213e" width="1200" height="400"/><circle cx="200" cy="200" r="80" fill="%23ffcc00" opacity="0.3"/><circle cx="600" cy="150" r="120" fill="%23ff6b00" opacity="0.2"/><circle cx="1000" cy="250" r="100" fill="%23e040fb" opacity="0.3"/></svg>') center/cover;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(22, 33, 62, 0.7);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: #ffcc00;
+            text-shadow: 4px 4px 0 #ff6b00;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: #fff;
+            text-shadow: 1px 1px 4px #000;
+        }
+
+        /* Секции */
+        .section {
+            padding: 60px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            color: #ffcc00;
+            text-align: center;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 5px;
+            background: #ff6b00;
+            margin: 15px auto 0;
+            border-radius: 3px;
+        }
+
+        /* Карточки бойцов */
+        .brawlers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+        }
+
+        .brawler-card {
+            background: #16213e;
+            border-radius: 20px;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .brawler-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 107, 0, 0.4);
+            border-color: #ffcc00;
+        }
+
+        .brawler-avatar {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #ffcc00, #ff6b00);
+            border-radius: 50%;
+            margin: 30px auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+        }
+
+        .brawler-card h3 {
+            color: #ffcc00;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .brawler-card .rarity {
+            display: inline-block;
+            background: #e040fb;
+            color: #fff;
+            padding: 4px 14px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .brawler-card .desc {
+            padding: 0 20px 30px;
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+
+        /* Режимы */
+        .modes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .mode-card {
+            background: #16213e;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            border-left: 6px solid #ff6b00;
+            transition: all 0.3s;
+        }
+
+        .mode-card:hover {
+            background: #1f3050;
+            transform: scale(1.03);
+        }
+
+        .mode-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+        }
+
+        .mode-card h3 {
+            color: #ffcc00;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+
+        .mode-card p {
+            color: #bbb;
+        }
+
+        /* Новости */
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .news-item {
+            background: #16213e;
+            padding: 25px 30px;
+            border-radius: 15px;
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .news-item:hover {
+            background: #1f3050;
+        }
+
+        .news-date {
+            background: #ff6b00;
+            color: #fff;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-align: center;
+            min-width: 70px;
+        }
+
+        .news-date .day {
+            font-size: 1.8rem;
+            display: block;
+        }
+
+        .news-content h3 {
+            color: #ffcc00;
+            margin-bottom: 5px;
+        }
+
+        .news-content p {
+            color: #aaa;
+        }
+
+        /* Футер */
+        footer {
+            background: #0f0f23;
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            border-top: 3px solid #ff6b00;
+            margin-top: 40px;
+        }
+
+        .footer-stars {
+            color: #ffcc00;
+            font-size: 1.5rem;
+            letter-spacing: 8px;
+            margin-bottom: 10px;
+        }
+
+        /* Адаптив */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            nav a {
+                margin: 0 8px;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .section {
+                padding: 40px 20px;
+            }
+
+            .news-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка -->
+    <header>
+        <div class="logo">BRAWL<span>STARS</span></div>
+        <nav>
+            <a href="#home">Главная</a>
+            <a href="#brawlers">Бойцы</a>
+            <a href="#modes">Режимы</a>
+            <a href="#news">Новости</a>
+        </nav>
+    </header>
+
+    <!-- Главный баннер -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Вступай в битву!</h1>
+            <p>Легендарная мобильная арена от Supercell</p>
+        </div>
+    </section>
+
+    <!-- Бойцы -->
+    <section class="section" id="brawlers">
+        <h2>⭐ Легендарные бойцы</h2>
+        <div class="brawlers-grid">
+            <div class="brawler-card">
+                <div class="brawler-avatar">🐉</div>
+                <h3>Спайк</h3>
+                <span class="rarity">Легендарный</span>
+                <p class="desc">Кактус, который бросает взрывающиеся колючки. Его Супер — поле шипов, замедляющее врагов.</p>
+            </div>
+            <div class="brawler-card">
+                <div class="brawler-avatar">🐦‍⬛</div>
+                <h3>Ворон</h3>
+                <span class="rarity">Легендарный</span>
+                <p class="desc">Токсичный ниндзя-птица. Отравляет врагов кинжалами и улетает с Супером.</p>
+            </div>
+            <div class="brawler-card">
+                <div class="brawler-avatar">🦎</div>
+                <h3>Леон</h3>
+                <span class="rarity">Легендарный</span>
+                <p class="desc">Мастер невидимости. Его Супер делает его невидимым для внезапных атак.</p>
+            </div>
+            <div class="brawler-card">
+                <div class="brawler-avatar">⚡</div>
+                <h3>Сэнди</h3>
+                <span class="rarity">Легендарный</span>
+                <p class="desc">Хранитель песков. Усыпляет врагов и создаёт песчаную бурю, скрывающую союзников.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Игровые режимы -->
+    <section class="section" id="modes" style="background: #12122a;">
+        <h2>🎮 Игровые режимы</h2>
+        <div class="modes-grid">
+            <div class="mode-card">
+                <div class="mode-icon">💎</div>
+                <h3>Захват кристаллов</h3>
+                <p>Собери 10 кристаллов и удерживай их 15 секунд. Классический режим 3 на 3.</p>
+            </div>
+            <div class="mode-card">
+                <div class="mode-icon">⚽</div>
+                <h3>Броулбол</h3>
+                <p>Забей два гола в ворота противника. Динамичный футбол без правил!</p>
+            </div>
+            <div class="mode-card">
+                <div class="mode-icon">🏆</div>
+                <h3>Нокаут</h3>
+                <p>Выиграй два раунда из трёх. Здесь нет возрождений — только хладнокровие.</p>
+            </div>
+            <div class="mode-card">
+                <div class="mode-icon">🔥</div>
+                <h3>Горячая зона</h3>
+                <p>Захвати контрольные точки и удерживай их, набирая очки для команды.</p>
+            </div>
+            <div class="mode-card">
+                <div class="mode-icon">🎯</div>
+                <h3>Ограбление</h3>
+                <p>Взломай сейф противника, защищая свой. Скорость и стратегия решают всё.</p>
+            </div>
+            <div class="mode-card">
+                <div class="mode-icon">👑</div>
+                <h3>Одиночное столкновение</h3>
+                <p>Королевская битва на 10 игроков. Выживи и стань последним бойцом!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Новости -->
+    <section class="section" id="news">
+        <h2>📰 Последние новости</h2>
+        <div class="news-list">
+            <div class="news-item">
+                <div class="news-date">
+                    <span class="day">15</span> мая
+                </div>
+                <div class="news-content">
+                    <h3>Новый боец: Кенджи</h3>
+                    <p>Встречайте легендарного самурая! Кенджи рассекает врагов клинком и уходит в тень с новым уникальным Супером.</p>
+                </div>
+            </div>
+            <div class="news-item">
+                <div class="news-date">
+                    <span class="day">02</span> мая
+                </div>
+                <div class="news-content">
+                    <h3>Brawl Pass: Сезон «Кибер-арена»</h3>
+                    <p>Киберпанковый скин для Мэг, эксклюзивные эмоции и 100 ярусов наград уже доступны в новом сезоне!</p>
+                </div>
+            </div>
+            <div class="news-item">
+                <div class="news-date">
+                    <span class="day">20</span> апр
+                </div>
+                <div class="news-content">
+                    <h3>Баланс-обновление 4.2</h3>
+                    <p>Спайк получил усиление урона, Ворон стал чуть медленнее, а Фрэнк обрёл новую звездную силу.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <div class="footer-stars">★ ★ ★</div>
+        <p>Фан-сайт сообщества Brawl Stars © 2025</p>
+        <p style="font-size:0.8rem; margin-top:8px;">Brawl Stars является торговой маркой Supercell. Этот сайт — фанатский проект, не связанный с компанией.</p>
+    </footer>
+
+</body>
+  </html>
